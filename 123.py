@@ -27,9 +27,9 @@ class Student:
     # СРАВНЕНИЕ ПО ОЦЕНКАМ СТУДЕНТОВ
     def __lt__(self, other):
         if self.s_sr_grades < other.s_sr_grades:
-            print(f"У {self.name} оценки меньше")
+            print(f"\nУ {self.name} {self.surname} средние оценки меньше")
         else:
-            print(f"У {other.name} оценки меньше")
+            print(f"\nУ {other.name} {other.surname} средние оценки меньше")
     # МАГИЧЕСКИЙ МЕТОД STR
     def __str__(self):
         return (f"Имя: {self.name} \nФамилия:{self.surname} \nСредняя оценка за домашние "
@@ -46,18 +46,28 @@ class Lecturer(Mentor):
     def __init__(self, name, surname):
         super().__init__(name, surname)
         self.grades = {}
-    # СРАВНЕНИЕ ЛЕКТОРОВ
+        self.l_sr_grades = 0
+    # РАСЧЕТ СРЕДНЕЙ ОЦЕНКИ
+    def le_sr_grades(self):
+        sr = 0
+        for grade in self.grades.values():
+            sr += sum(grade) / len(grade)
+            self.l_sr_grades = sr / len(self.grades)
+        return self.l_sr_grades
+    # СРАВНЕНИЕ ПО ОЦЕНКАМ ЛЕКТОРОВ
     def __lt__(self, other):
-        return self.sr_rate < other.sr_rate
-
+        if self.l_sr_grades < other.l_sr_grades:
+            print(f"\nУ {self.name} {self.surname} средние оценки меньше")
+        else:
+            print(f"\nУ {other.name} {self.surname} средние оценки меньше")
+    # МАГИЧЕСКИЙ МЕТОД STR
     def __str__(self):
-        return f"Имя: {self.name} \nФамилия:{self.surname} \nСредняя оценка за лекции:"
-
+        return f"Имя: {self.name} \nФамилия:{self.surname} \nСредняя оценка за лекции:{self.le_sr_grades()}"
 
 class Reviewer(Mentor):
     def __init__(self, name, surname):
         super().__init__(name, surname)
-
+    # ВЫСТАВЛЕНИЕ ОЦЕНОК СТУДЕНТАМ
     def rate_hw(self, student, course, grade):
         if isinstance(student, Student) and course in self.courses_vedush and course in student.courses_in_progress:
             if course in student.grades:
@@ -66,7 +76,7 @@ class Reviewer(Mentor):
                 student.grades[course] = [grade]
         else:
             return 'Ошибка'
-
+    # МАГИЧЕСКИЙ МЕТОД STR
     def __str__(self):
         return f"Имя: {self.name} \nФамилия:{self.surname}"
 
@@ -98,11 +108,16 @@ cool_reviewer2.rate_hw(best_student1, 'JS', 5)
 # print(f"Оценка лектора 2 {cool_lecturer2.grades} ")
 # print(f"Оценка студенту {best_student.grades}")
 # print(f"Оценка студенту {best_student1.grades}")
-# ВЫВОД ПО ЗАДАНИЮ 3
-# print(f"Ревивер:\n{cool_reviewer2}")
-# print(f"Лектор:\n{cool_lecturer1}")
-# print(f"Лектор:\n{cool_lecturer2}")
-# print(f"Студент 1:\n{best_student} \nСтудент 2: \n{best_student1}")
-print(best_student<best_student1)
 
-# print(f"Средняя оценка лекторов {cool_lecturer1.sr_grades} ")
+# ВЫВОД ПО ЗАДАНИЮ 3 МАГИЧЕСКИЕ МЕТОДЫ
+print(f"\nРевивер 1:\n{cool_reviewer}")
+print(f"\nРевивер 2:\n{cool_reviewer2}")
+print(f"\nЛектор 1:\n{cool_lecturer1}")
+print(f"\nЛектор 2:\n{cool_lecturer2}")
+print(f"\nСтудент 1:\n{best_student}")
+print(f"\nСтудент 2:\n{best_student1}")
+# ВЫВОД ПО ЗАДАНИЮ 3 СРАВНЕНИЯ
+print(best_student<best_student1)
+print(cool_lecturer1<cool_lecturer2)
+
+# print(f"Студент 1:\n{best_student} \nСтудент 2: \n{best_student1}")
