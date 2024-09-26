@@ -22,7 +22,6 @@ class Student:
         for grade in self.grades.values():        # for grade in self.grades.values():
             sr += sum(grade) / len(grade)  #     sr += sum(grade) / len(grade)
             return sr                           # return sr / len(self.grades)
-
     # СРАВНЕНИЕ ПО ОЦЕНКАМ СТУДЕНТОВ
     def __lt__(self, other):
         return self.st_sr_grades() < other.st_sr_grades()
@@ -33,10 +32,8 @@ class Student:
             if m == kurs:
                 for grade in self.grades[m]:
                     sr += sum(grade) / len(grade)
-                print('ah')
+            print(m, kurs)
         return sr
-
-
 
     # МАГИЧЕСКИЙ МЕТОД STR
     def __str__(self):
@@ -103,9 +100,11 @@ cool_reviewer = Reviewer('Some', 'Buddy') # Ревивер 1
 cool_reviewer.courses_vedush += ['Python']
 cool_reviewer.rate_hw(best_student, 'Python', 9)
 cool_reviewer.rate_hw(best_student, 'Python', 4)
+cool_reviewer.rate_hw(best_student, 'JS', 5)
 cool_reviewer2 = Reviewer('One', 'Buddy') # Ревивер 2
 cool_reviewer2.courses_vedush += ['JS']
 cool_reviewer2.rate_hw(best_student1, 'JS', 5)
+cool_reviewer2.rate_hw(best_student1, 'Python', 4)
 # ВЫВОД ПО ЗАДАНИЯМ
 print(f"\nРевивер 1:\n{cool_reviewer}")
 print(f"\nРевивер 2:\n{cool_reviewer2}")
@@ -120,8 +119,9 @@ print(f"\nСредняя оценка лектора 1 {cool_lecturer1.le_sr_gra
 print(f"Средняя оценка лектора 2 {cool_lecturer2.le_sr_grades()}")
 print(f'У первого больше ср оценка? {cool_lecturer2<cool_lecturer1}')
 
-#
-print(best_student.st_sr_kurs('JS'))
+print(best_student1.st_sr_kurs(kurs='Python'))
+#  я не понимаю как сделать среднюю именно по курсу, сделал в классе студентов что я догнал, помогите,
+# потому что через чаты нереально нормально получить помощь, может покажите примерный код
 
 
 
