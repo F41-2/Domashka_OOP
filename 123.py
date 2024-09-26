@@ -6,7 +6,6 @@ class Student:
         self.finished_courses = []
         self.courses_in_progress = []
         self.grades = {}
-        self.s_sr_grades = 0
         self.rate_lecturer = {}
     # ВЫСТАВЛЕНИЕ ОЦЕНОК ЛЕКТОРАМ
     def rate_lecturers(self, lecturer, course, grade):
@@ -20,16 +19,25 @@ class Student:
     # РАСЧЕТ СРЕДНЕЙ ОЦЕНКИ
     def st_sr_grades(self):
         sr = 0
-        for grade in self.grades.values():
-            sr += sum(grade) / len(grade)
-            self.s_sr_grades = sr / len(self.grades)
-        return self.s_sr_grades
+        for grade in self.grades.values():        # for grade in self.grades.values():
+            sr += sum(grade) / len(grade)  #     sr += sum(grade) / len(grade)
+            return sr                           # return sr / len(self.grades)
+
     # СРАВНЕНИЕ ПО ОЦЕНКАМ СТУДЕНТОВ
     def __lt__(self, other):
-        if self.s_sr_grades < other.s_sr_grades:
-            print(f"\nУ {self.name} {self.surname} средние оценки меньше")
-        else:
-            print(f"\nУ {other.name} {other.surname} средние оценки меньше")
+        return self.st_sr_grades() < other.st_sr_grades()
+    # СРЕДНЯЯ ПО ОЦЕНКАМ ОДНОГО КУРСА
+    def st_sr_kurs(self, kurs):
+        sr=0
+        for m in self.grades.keys():
+            if m == kurs:
+                for grade in self.grades[m]:
+                    sr += sum(grade) / len(grade)
+                print('ah')
+        return sr
+
+
+
     # МАГИЧЕСКИЙ МЕТОД STR
     def __str__(self):
         return (f"Имя: {self.name} \nФамилия:{self.surname} \nСредняя оценка за домашние "
@@ -46,20 +54,15 @@ class Lecturer(Mentor):
     def __init__(self, name, surname):
         super().__init__(name, surname)
         self.grades = {}
-        self.l_sr_grades = 0
     # РАСЧЕТ СРЕДНЕЙ ОЦЕНКИ
     def le_sr_grades(self):
         sr = 0
         for grade in self.grades.values():
             sr += sum(grade) / len(grade)
-            self.l_sr_grades = sr / len(self.grades)
-        return self.l_sr_grades
+        return sr
     # СРАВНЕНИЕ ПО ОЦЕНКАМ ЛЕКТОРОВ
     def __lt__(self, other):
-        if self.l_sr_grades < other.l_sr_grades:
-            print(f"\nУ {self.name} {self.surname} средние оценки меньше")
-        else:
-            print(f"\nУ {other.name} {self.surname} средние оценки меньше")
+        return self.le_sr_grades() < other.le_sr_grades()
     # МАГИЧЕСКИЙ МЕТОД STR
     def __str__(self):
         return f"Имя: {self.name} \nФамилия:{self.surname} \nСредняя оценка за лекции:{self.le_sr_grades()}"
@@ -85,7 +88,7 @@ best_student = Student('Petya', 'Bratishkin', 'your_gender')
 best_student.courses_in_progress += ['Python']
 best_student.finished_courses += ['Введение в программирование']
 best_student1 = Student('Jenya', 'Animro', 'your_gender')
-best_student1.courses_in_progress += ['JS']
+best_student1.courses_in_progress += ['Python', 'JS']
 best_student1.finished_courses += ['Введение в программирование']
 # СОЗДАЮ ЛЕКТОРОВ И СТАВЛЮ ИМ ОЦЕНКИ
 cool_lecturer1 = Lecturer('Dima', 'Buddy') # Лектор 1
@@ -103,21 +106,22 @@ cool_reviewer.rate_hw(best_student, 'Python', 4)
 cool_reviewer2 = Reviewer('One', 'Buddy') # Ревивер 2
 cool_reviewer2.courses_vedush += ['JS']
 cool_reviewer2.rate_hw(best_student1, 'JS', 5)
-#ОЦЕНКИ
-# print(f"Оценка лектора 1 {cool_lecturer1.grades} ")
-# print(f"Оценка лектора 2 {cool_lecturer2.grades} ")
-# print(f"Оценка студенту {best_student.grades}")
-# print(f"Оценка студенту {best_student1.grades}")
-
-# ВЫВОД ПО ЗАДАНИЮ 3 МАГИЧЕСКИЕ МЕТОДЫ
+# ВЫВОД ПО ЗАДАНИЯМ
 print(f"\nРевивер 1:\n{cool_reviewer}")
 print(f"\nРевивер 2:\n{cool_reviewer2}")
 print(f"\nЛектор 1:\n{cool_lecturer1}")
 print(f"\nЛектор 2:\n{cool_lecturer2}")
 print(f"\nСтудент 1:\n{best_student}")
 print(f"\nСтудент 2:\n{best_student1}")
-# ВЫВОД ПО ЗАДАНИЮ 3 СРАВНЕНИЯ
-print(best_student<best_student1)
-print(cool_lecturer1<cool_lecturer2)
+print(f"\nСредняя оценка студента 1 {best_student.st_sr_grades()}")
+print(f"Средняя оценка студента 2 {best_student1.st_sr_grades()}")
+print(f'У второго больше ср оценка? {best_student<best_student1}')
+print(f"\nСредняя оценка лектора 1 {cool_lecturer1.le_sr_grades()}")
+print(f"Средняя оценка лектора 2 {cool_lecturer2.le_sr_grades()}")
+print(f'У первого больше ср оценка? {cool_lecturer2<cool_lecturer1}')
 
-# print(f"Студент 1:\n{best_student} \nСтудент 2: \n{best_student1}")
+#
+print(best_student.st_sr_kurs('JS'))
+
+
+
