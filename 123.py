@@ -21,10 +21,10 @@ class Student:
             return 'Ошибка'
     # РАСЧЕТ СРЕДНЕЙ ОЦЕНКИ
     def st_sr_grades(self):
-        sr = 0
-        for grade in self.grades.values():        # for grade in self.grades.values():
-            sr += sum(grade) / len(grade)  #     sr += sum(grade) / len(grade)
-            return sr                           # return sr / len(self.grades)
+        sr = []
+        for grade in self.grades.values():
+            sr += grade
+        return sum(sr)/len(sr)
     # СРАВНЕНИЕ ПО ОЦЕНКАМ СТУДЕНТОВ
     def __lt__(self, other):
         return self.st_sr_grades() < other.st_sr_grades()
@@ -46,10 +46,10 @@ class Lecturer(Mentor):
         self.grades = {}
     # РАСЧЕТ СРЕДНЕЙ ОЦЕНКИ
     def le_sr_grades(self):
-        sr = 0
+        sr = []
         for grade in self.grades.values():
-            sr += sum(grade) / len(grade)
-        return sr
+            sr += grade
+        return sum(sr)/len(sr)
     # СРАВНЕНИЕ ПО ОЦЕНКАМ ЛЕКТОРОВ
     def __lt__(self, other):
         return self.le_sr_grades() < other.le_sr_grades()
