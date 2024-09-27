@@ -1,3 +1,6 @@
+from os import stat_result
+
+
 class Student:
     def __init__(self, name, surname, gender):
         self.name = name
@@ -26,14 +29,14 @@ class Student:
     def __lt__(self, other):
         return self.st_sr_grades() < other.st_sr_grades()
     # СРЕДНЯЯ ПО ОЦЕНКАМ ОДНОГО КУРСА
-    def st_sr_kurs(self, kurs):
-        sr=0
-        for m in self.grades.keys():
-            if m == kurs:
-                for grade in self.grades[m]:
-                    sr += sum(grade) / len(grade)
-            print(m, kurs)
-        return sr
+    # def st_sr_kurs(self, kurs):
+    #     sr=0
+    #     for m in self.grades.keys():
+    #         if m == kurs:
+    #             for grade in self.grades[m]:
+    #                 sr += sum(grade) / len(grade)
+    #         print(m, kurs)
+    #     return sr
 
     # МАГИЧЕСКИЙ МЕТОД STR
     def __str__(self):
@@ -100,7 +103,6 @@ cool_reviewer = Reviewer('Some', 'Buddy') # Ревивер 1
 cool_reviewer.courses_vedush += ['Python']
 cool_reviewer.rate_hw(best_student, 'Python', 9)
 cool_reviewer.rate_hw(best_student, 'Python', 4)
-cool_reviewer.rate_hw(best_student, 'JS', 5)
 cool_reviewer2 = Reviewer('One', 'Buddy') # Ревивер 2
 cool_reviewer2.courses_vedush += ['JS']
 cool_reviewer2.rate_hw(best_student1, 'JS', 5)
@@ -119,9 +121,19 @@ print(f"\nСредняя оценка лектора 1 {cool_lecturer1.le_sr_gra
 print(f"Средняя оценка лектора 2 {cool_lecturer2.le_sr_grades()}")
 print(f'У первого больше ср оценка? {cool_lecturer2<cool_lecturer1}')
 
-print(best_student1.st_sr_kurs(kurs='Python'))
+# print(best_student1.st_sr_kurs(kurs='Python'))
+students = [best_student, best_student1]
+course = 'Python'
+def average_rating_student_course(students: list[Student], course):
+    sr = []
+    for m in students:
+        for n in m.grades.get(course):
+            sr.append(n)
+        sr = sum(sr)/len(sr)
+        print(sr)
+print(average_rating_student_course(students, course))
 #  я не понимаю как сделать среднюю именно по курсу, сделал в классе студентов что я догнал, помогите,
 # потому что через чаты нереально нормально получить помощь, может покажите примерный код
-
+# print(', '.join(m.courses_in_progress))
 
 
