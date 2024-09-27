@@ -126,7 +126,7 @@ def average_rating_lectori_course(lectori: list[Lecturer], course_l):
     sre = []
     for m in lectori:
         sre.extend(m.grades.get(course_l, []))
-    return  f'\nСредняя оценка среди студентов по курсу {course_l} : {sum(sr)/len(sr)}'
+    return  f'\nСредняя оценка среди лекторов по курсу {course_l} : {sum(sr)/len(sr)}'
 print(average_rating_student_course(lectori, course_l))
 
 
