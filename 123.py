@@ -106,7 +106,7 @@ cool_reviewer.rate_hw(best_student, 'Python', 4)
 cool_reviewer2 = Reviewer('One', 'Buddy') # Ревивер 2
 cool_reviewer2.courses_vedush += ['JS']
 cool_reviewer2.rate_hw(best_student1, 'JS', 5)
-cool_reviewer2.rate_hw(best_student1, 'Python', 4)
+cool_reviewer2.rate_hw(best_student1, 'Python', 2)
 # ВЫВОД ПО ЗАДАНИЯМ
 print(f"\nРевивер 1:\n{cool_reviewer}")
 print(f"\nРевивер 2:\n{cool_reviewer2}")
@@ -127,10 +127,9 @@ course = 'Python'
 def average_rating_student_course(students: list[Student], course):
     sr = []
     for m in students:
-        for n in m.grades.get(course):
-            sr.append(n)
-        sr = sum(sr)/len(sr)
-        print(sr)
+        sr.extend(m.grades.get(course, []))
+    oc = sum(sr)/len(sr)
+    print(oc)
 print(average_rating_student_course(students, course))
 #  я не понимаю как сделать среднюю именно по курсу, сделал в классе студентов что я догнал, помогите,
 # потому что через чаты нереально нормально получить помощь, может покажите примерный код
