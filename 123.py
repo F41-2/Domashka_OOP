@@ -28,17 +28,7 @@ class Student:
     # СРАВНЕНИЕ ПО ОЦЕНКАМ СТУДЕНТОВ
     def __lt__(self, other):
         return self.st_sr_grades() < other.st_sr_grades()
-    # СРЕДНЯЯ ПО ОЦЕНКАМ ОДНОГО КУРСА
-    # def st_sr_kurs(self, kurs):
-    #     sr=0
-    #     for m in self.grades.keys():
-    #         if m == kurs:
-    #             for grade in self.grades[m]:
-    #                 sr += sum(grade) / len(grade)
-    #         print(m, kurs)
-    #     return sr
-
-    # МАГИЧЕСКИЙ МЕТОД STR
+       # МАГИЧЕСКИЙ МЕТОД STR
     def __str__(self):
         return (f"Имя: {self.name} \nФамилия:{self.surname} \nСредняя оценка за домашние "
                 f"задания: {self.st_sr_grades()}\nКурсы в процессе обучения: {', '.join(self.courses_in_progress)}\n"
@@ -104,7 +94,7 @@ cool_reviewer.courses_vedush += ['Python']
 cool_reviewer.rate_hw(best_student, 'Python', 9)
 cool_reviewer.rate_hw(best_student, 'Python', 4)
 cool_reviewer2 = Reviewer('One', 'Buddy') # Ревивер 2
-cool_reviewer2.courses_vedush += ['JS']
+cool_reviewer2.courses_vedush += ['JS', 'Python']
 cool_reviewer2.rate_hw(best_student1, 'JS', 5)
 cool_reviewer2.rate_hw(best_student1, 'Python', 2)
 # ВЫВОД ПО ЗАДАНИЯМ
@@ -116,21 +106,28 @@ print(f"\nСтудент 1:\n{best_student}")
 print(f"\nСтудент 2:\n{best_student1}")
 print(f"\nСредняя оценка студента 1 {best_student.st_sr_grades()}")
 print(f"Средняя оценка студента 2 {best_student1.st_sr_grades()}")
-print(f'У второго больше ср оценка? {best_student<best_student1}')
+print(f'У второго больше средняя оценка? {best_student<best_student1}')
 print(f"\nСредняя оценка лектора 1 {cool_lecturer1.le_sr_grades()}")
 print(f"Средняя оценка лектора 2 {cool_lecturer2.le_sr_grades()}")
-print(f'У первого больше ср оценка? {cool_lecturer2<cool_lecturer1}')
+print(f'У первого больше средняя оценка? {cool_lecturer2<cool_lecturer1}')
 
-# print(best_student1.st_sr_kurs(kurs='Python'))
 students = [best_student, best_student1]
 course = 'Python'
 def average_rating_student_course(students: list[Student], course):
     sr = []
     for m in students:
         sr.extend(m.grades.get(course, []))
-    oc = sum(sr)/len(sr)
-    print(oc)
+    return  f'\nСредняя оценка среди студентов по курсу {course} : {sum(sr)/len(sr)}'
 print(average_rating_student_course(students, course))
+
+lectori = [cool_lecturer1, cool_lecturer2]
+course_l = 'JS'
+def average_rating_lectori_course(lectori: list[Lecturer], course_l):
+    sre = []
+    for m in lectori:
+        sre.extend(m.grades.get(course_l, []))
+    return  f'\nСредняя оценка среди студентов по курсу {course_l} : {sum(sr)/len(sr)}'
+print(average_rating_student_course(lectori, course_l))
 
 
 
