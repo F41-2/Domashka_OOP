@@ -131,8 +131,6 @@ def average_rating_student_course(students: list[Student], course):
     oc = sum(sr)/len(sr)
     print(oc)
 print(average_rating_student_course(students, course))
-#  я не понимаю как сделать среднюю именно по курсу, сделал в классе студентов что я догнал, помогите,
-# потому что через чаты нереально нормально получить помощь, может покажите примерный код
-# print(', '.join(m.courses_in_progress))
+
 
 
